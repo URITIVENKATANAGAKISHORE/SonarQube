@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  - main
+
+stages:
+
+  - stage: sonar
+    displayName: Sonar Analysis for a PR
+    pool:
+      vmImage: $(pipeline.pool.vmImage)
+    
+    jobs:
+      - job: buildAndRunSonar
+        displayName: Build Maven and run SonarQube Analysis
+    
+        steps:
+          - template: template-build-and-sonar.yml
+            parameters:
+              sonarAnalysis: true
+      
